@@ -1,13 +1,16 @@
+import { Loading } from 'element-ui';
 import { hosts } from '../services/urls';
 
 function noop () {}
 export default async function request (options = {}, cb = noop) {
+    const mask = options.mask || true;
+    const spin = options.spin || true;
     // 请求头
     const headers = options.headers || {};
     // 请求路径
     const url = /^http(s)?:\/\//.test(options.url) ? options.url : `${hosts.baseUrl}${options.url}`;
     // 请求方法
-    const method = (options.method && options.method.toLocalUpperCase()) || 'POST';
+    const method = (options.method && options.method.toLocaleUpperCase()) || 'POST';
     const json = {}; // 默认参数
     // 请求参数
     const params = Object.assign({}, json, options.param);
@@ -32,7 +35,11 @@ export default async function request (options = {}, cb = noop) {
     if (method === 'POST') {
         fetchOpts.body = JSON.stringify(params);
     }
-
+    let loadingInstance;
+    if (spin) {
+        if (window.responseCount === undefined) window.responseCount = 0;
+        if (!window.responseCount++) loadingInstance = Loading.service({ text: '加载中...', fullscreen: mask });
+    }
     try {
         result = await fetch(fetchUrl, fetchOpts).then((res) => {
             if (res.status === 200) {
@@ -49,6 +56,11 @@ export default async function request (options = {}, cb = noop) {
             status: '123456',
             msg: '服务器请求失败！',
         };
+    }
+    if (spin) {
+        if (!window.responseCount || !--window.responseCount) {
+            loadingInstance && loadingInstance.close();
+        }
     }
     // 中间操作
     cb(result);

@@ -14,7 +14,7 @@ function initHost () {
     }
 }
 
-export const host = initHost();
+export const hosts = initHost();
 export default {
     // 获取城市列表
     cities: 'v1/cities',

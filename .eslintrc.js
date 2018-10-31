@@ -49,8 +49,12 @@ module.exports = {
         'eol-last': [0],
         'import/no-useless-path-segments': [0],
         'no-restricted-syntax': [0],
+        'no-unused-vars': [0],
         'semi': ['error', 'always'],
+        'no-plusplus': [0],
+        'no-unused-expressions': [0],
         // allow debugger during development
-        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+        'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off'
     }
 }
