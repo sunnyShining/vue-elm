@@ -8,11 +8,12 @@
             <el-button type="warning">警告按钮</el-button>
             <el-button type="danger">危险按钮</el-button>
         </el-row>
+        <div>{{citiesDate.name}}112312</div>
     </div>
 </template>
 
 <script>
-import { cities } from '../services/services';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     name: 'HelloWorld',
@@ -22,11 +23,15 @@ export default {
         };
     },
     created () {
-        cities({
-            type: 'guess',
-        }).then((res) => {
-            console.log(res);
-        });
+        this.cities({ type: 'guess' });
+    },
+    computed: {
+        ...mapState({
+            citiesDate: state => state.test.cities,
+        }),
+    },
+    methods: {
+        ...mapActions(['cities']),
     },
 };
 </script>

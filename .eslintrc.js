@@ -53,6 +53,8 @@ module.exports = {
         'semi': ['error', 'always'],
         'no-plusplus': [0],
         'no-unused-expressions': [0],
+        'func-names': [0],
+        'no-shadow': [0],
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off'

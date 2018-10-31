@@ -3,19 +3,30 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
 import Vue from 'vue';
-import ElementUI from 'element-ui';
+import ElementUI, { Message } from 'element-ui';
 import './assets/css/index.scss';
 import './utils/fetch';
 import App from './App';
 import router from './router';
+import store from './store/index';
 
 Vue.config.productionTip = false;
+Vue.config.devtools = false;
+
+Vue.config.errorHandler = function (err, vm, info) {
+    Message.error({ message: err.message });
+};
+
+if (process.env.NODE_ENV === 'development') {
+    Vue.config.devtools = true;
+}
 
 Vue.use(ElementUI);
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
+    store,
     components: { App },
     template: '<App/>',
 });
