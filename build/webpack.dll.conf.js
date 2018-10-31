@@ -8,7 +8,7 @@ const resolve = (dir) => path.join(__dirname, '..', dir)
 
 module.exports = {
 	entry: {
-		vendor: ['vue', 'vue-router']
+		vendor: ['vue', 'vue-router', 'babel-polyfill', 'whatwg-fetch', 'element-ui']
 	},
 	output: {
 		path: resolve('dll/js'),

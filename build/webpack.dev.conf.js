@@ -6,6 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+const fs = require('fs')
 const baseWebpackConfig = require('./webpack.base.conf')
 const utils = require('./utils')
 const manifest = require('./dll/vendor-manifest.json')
@@ -16,6 +17,7 @@ const PORT = process.env.PORT && Number(process.env.PORT)
 const env = process.env.ENV || 'dev'
 const config = require('../config')[env]
 let initOpen = true
+const protocol = config.HTTPS ? 'https' : 'http'
 
 const resolve = (dir) => path.join(__dirname, '..', dir)
 
@@ -60,9 +62,15 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         publicPath: config.assetsPublicPath,
         proxy: config.proxyTable,
         quiet: true, // necessary for FriendlyErrorsPlugin
+        https: protocol === 'https' ? {
+            key: fs.readFileSync(resolve('build/private.pem'), 'utf8'),
+            cert: fs.readFileSync(resolve('build/file.crt'), 'utf8'),
+            ca: fs.readFileSync(resolve('build/csr.pem'), 'utf8'),
+        } : false,
         watchOptions: {
             poll: config.poll,
         },
+        disableHostCheck: true,
     },
     plugins: [
         new webpack.DefinePlugin({
@@ -107,7 +115,7 @@ module.exports = new Promise((resolve, reject) => {
             devWebpackConfig.plugins.push(
                 new FriendlyErrorsPlugin({
                     compilationSuccessInfo: {
-                        messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
+                        messages: [`Your application is running here: ${protocol === 'https' ? 'https' : 'http'}://${devWebpackConfig.devServer.host}:${port}`],
                     },
                     onErrors: config.notifyOnErrors ? utils.createNotifierCallback() : undefined,
                 }),
@@ -119,7 +127,7 @@ module.exports = new Promise((resolve, reject) => {
                         }
                         if (config.autoOpenBrowser && initOpen) {
                             initOpen = false
-                            utils.startBrowserProcess(`http://127.0.0.1:${port}`)
+                            utils.startBrowserProcess(`${protocol === 'https' ? 'https' : 'http'}://localhost:${port}`)
                         }
                     })
                 }
