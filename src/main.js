@@ -5,6 +5,7 @@ import 'whatwg-fetch';
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import './assets/css/index.scss';
+import './utils/fetch';
 import App from './App';
 import router from './router';
 
