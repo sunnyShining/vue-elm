@@ -1,3 +1,10 @@
+/**
+ * @author sunny
+ * @email yanlihui276@163.com
+ * @create date 2018-10-31
+ * @desc vuex测试模块
+*/
+
 import { Commit } from 'vuex';
 import * as types from '../mutation-types';
 import { cities } from '../../services/services';

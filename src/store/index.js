@@ -1,4 +1,10 @@
-// 入口文件
+/**
+ * @author sunny
+ * @email yanlihui276@163.com
+ * @create date 2018-10-31
+ * @desc vuex入口文件
+*/
+
 import Vue from 'vue';
 import Vuex, { Commit, Dispatch } from 'vuex';
 import createLogger from 'vuex/dist/logger';

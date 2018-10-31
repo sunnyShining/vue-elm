@@ -55,8 +55,11 @@ module.exports = {
         'no-unused-expressions': [0],
         'func-names': [0],
         'no-shadow': [0],
+        'no-restricted-properties': [0],
+        'no-restricted-globals': [0],
+        'prefer-destructuring': [0],
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-        'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off'
+        'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
     }
 }

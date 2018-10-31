@@ -1,3 +1,10 @@
+/**
+ * @author sunny
+ * @email yanlihui276@163.com
+ * @create date 2018-10-31
+ * @desc 资源路径
+*/
+
 function initHost () {
     if (process.env.NODE_ENV === 'development') {
         return {

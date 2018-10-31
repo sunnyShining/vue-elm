@@ -1,10 +1,17 @@
-import { Loading } from 'element-ui';
+/**
+ * @author sunny
+ * @email yanlihui276@163.com
+ * @create date 2018-10-31
+ * @desc 接口请求封装
+*/
+
+import { Loading, Message } from 'element-ui';
 import { hosts } from '../services/urls';
 
 function noop () {}
 export default async function request (options = {}, cb = noop) {
-    const mask = options.mask || true;
-    const spin = options.spin || true;
+    const mask = options.mask === undefined ? true : options.mask;
+    const spin = options.spin === undefined ? true : options.spin;
     // 请求头
     const headers = options.headers || {};
     // 请求路径
@@ -16,6 +23,7 @@ export default async function request (options = {}, cb = noop) {
     const params = Object.assign({}, json, options.param);
     // 超时时间
     const fetchTime = options.fetchTime || 20000;
+    const errorToast = options.errorToast === undefined ? true : options.errorToast;
     // 请求结果
     let result;
     let str = '';
@@ -47,14 +55,14 @@ export default async function request (options = {}, cb = noop) {
             } else {
                 return {
                     status: '1234567',
-                    msg: res.statusText || '服务器请求失败！',
+                    message: res.statusText || '服务器请求失败！',
                 };
             }
         });
     } catch (e) {
         result = {
             status: '123456',
-            msg: '服务器请求失败！',
+            message: '服务器请求失败！',
         };
     }
     if (spin) {
@@ -62,6 +70,8 @@ export default async function request (options = {}, cb = noop) {
             loadingInstance && loadingInstance.close();
         }
     }
-    // 中间操作
+    if (result.message) {
+        Message.error({ message: result.message });
+    }
     cb(result);
 }
