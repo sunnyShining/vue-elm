@@ -35,6 +35,8 @@ module.exports = {
         'vue/html-indent': [2, 4],
         'vue/script-indent': [2, 4],
         'import/extensions': [0],
+        'max-len': [0],
+        'comma-dangle': [0],
         'import/no-unresolved': [0],
         'import/no-named-as-default-member': [0],
         'import/no-extraneous-dependencies': 'off',
