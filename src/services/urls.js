@@ -8,23 +8,23 @@
 function initHost () {
     if (process.env.NODE_ENV === 'development') {
         return {
-            baseUrl: 'https://elm.cangdu.org/',
+            baseUrl: 'https://cnodejs.org/api/v1/',
         };
     } else if (process.env.NODE_ENV === 'production') {
         return {
-            baseUrl: 'https://elm.cangdu.org',
+            baseUrl: 'https://cnodejs.org/api/v1/',
         };
     } else {
         return {
-            baseUrl: 'https://elm.cangdu.org',
+            baseUrl: 'https://cnodejs.org/api/v1/',
         };
     }
 }
 
 export const hosts = initHost();
 export default {
-    // 获取城市列表
-    cities: 'v1/cities',
+    // get /topics 主题首页
+    topics: `${hosts.baseUrl}topics`,
     // 获取所选城市信息
     getCities: 'v1/cities/',
     // 搜索地址

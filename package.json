@@ -13,9 +13,6 @@
     "fix": "eslint --fix --ext .js,.vue src",
     "preCommit": "echo checking... && npm run lint"
   },
-  "pre-commit": [
-    "preCommit"
-  ],
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "element-ui": "^2.4.9",

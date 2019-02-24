@@ -19,3 +19,15 @@ export function cities (options = {}) {
         });
     });
 }
+// get /topics 主题首页
+export function topics (options = {}) {
+    return new Promise((resolve, reject) => {
+        request({
+            method: 'GET',
+            url: url.topics,
+            param: options,
+        }, (data) => {
+            resolve(data);
+        });
+    });
+}

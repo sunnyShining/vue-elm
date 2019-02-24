@@ -37,7 +37,7 @@ export default async function request (options = {}, cb = noop) {
             'Content-Type': 'application/json',
             ...headers,
         },
-        credentials: 'include',
+        // credentials: 'include',
         timeout: fetchTime,
     };
     if (method === 'POST') {
